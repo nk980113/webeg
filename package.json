@@ -1,0 +1,45 @@
+{
+  "name": "webeg",
+  "version": "0.0.0-alpha.0",
+  "description": "A new web UI library inspired by React",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./jsx-runtime": {
+      "import": "./dist/jsx-runtime.js"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint",
+    "test:compile": "cd testcases && tsup --watch",
+    "test:cypress": "cypress open",
+    "test": "concurrently -n compile,cypress --kill-others \"npm run test:compile\" \"npm run test:cypress\"",
+    "dev": "concurrently -n \"build,test\" --kill-others \"npm run build -- --watch\" \"npm test\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nk980113/webeg.git"
+  },
+  "author": "Nick Tseng <gtsteg123@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nk980113/webeg/issues"
+  },
+  "homepage": "https://github.com/nk980113/webeg#readme",
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "concurrently": "^8.2.1",
+    "cypress": "^13.2.0",
+    "eslint": "^8.49.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.28.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  }
+}
