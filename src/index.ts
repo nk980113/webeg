@@ -1,5 +1,11 @@
 import type { FC, IntrinsicElementStr, VElement } from './jsx-runtime.js';
-import { kCreator, kInsertRef, kProps } from './symbols.js';
+import {
+  kCreator,
+  kIdent,
+  kInsertRef,
+  kProps,
+  kWebeg,
+} from './symbols.js';
 
 if (typeof window === 'undefined') {
   throw new Error('This package should be run in browser or browser-like environment.');
@@ -30,13 +36,13 @@ function render(vel: VElement<IntrinsicElementStr | FC<unknown>, unknown, unknow
         } else {
           els = [renderAny(p)];
         }
-        els.forEach((e) => {
-          if (e) el.appendChild(e);
-        });
+        els.forEach((es) => es.forEach((e) => el.appendChild(e)));
       } else if (v === 'key') {
         // No-op
+      } else if (v === 'style') {
+        Object.assign(el.style, p);
       } else if (p) {
-        el.setAttribute(v, p);
+        (el as Record<typeof v, unknown>)[v] = p;
       }
     });
 
@@ -46,17 +52,23 @@ function render(vel: VElement<IntrinsicElementStr | FC<unknown>, unknown, unknow
   throw new Error('Function components are not implemented now');
 }
 
-function renderAny(vel: JSX.Element): Node | null {
+function renderAny(vel: JSX.Element): Node[] {
   switch (typeof vel) {
     case 'string':
     case 'number':
     case 'bigint':
-      return document.createTextNode(String(vel));
+      return [document.createTextNode(String(vel))];
     case 'undefined':
     case 'boolean':
-      return null;
+      return [];
     case 'object':
-      return render(vel);
+      if (vel[kIdent] === kWebeg) {
+        return [render(vel)];
+      }
+      if (Array.isArray(vel)) {
+        return vel.flatMap((v) => renderAny(v));
+      }
+      throw new Error('Type not supported');
     default:
       throw new Error('Type not supported');
   }
@@ -67,8 +79,8 @@ export function create(
   root: HTMLElement,
   element: JSX.Element,
 ) {
-  const el = renderAny(element);
-  if (el) root.appendChild(el);
+  const els = renderAny(element);
+  els.forEach((el) => root.appendChild(el));
 }
 
 export {

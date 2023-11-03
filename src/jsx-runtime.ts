@@ -1,8 +1,11 @@
+import { StandardProperties as CSSProperties } from 'csstype';
 import {
   kCreator,
   kExtend,
+  kIdent,
   kInsertRef,
   kProps,
+  kWebeg,
 } from './symbols.js';
 
 // #region globalJsxDecl
@@ -115,6 +118,7 @@ type Props<
   & {
       children?: JSX.Element;
       key?: string;
+      style?: CSSProperties;
     };
 
 export type IntrinsicElementStr = keyof JSX.IntrinsicElements & keyof HTMLElementTagNameMap;
@@ -131,6 +135,7 @@ type PropType<C extends IntrinsicElementStr | FC<unknown>> = C extends Intrinsic
 export type FC<PropsType> = never;
 
 export type VElement<C extends IntrinsicElementStr | FC<unknown>, P, E> = {
+  [kIdent]: typeof kWebeg;
   [kCreator]: C;
   [kProps]: unknown;
   [kInsertRef](ref: P): boolean;
@@ -150,6 +155,7 @@ export function jsx(
   if (typeof type === 'string') {
     let ref: unknown;
     return new Proxy({
+      [kIdent]: kWebeg,
       [kCreator]: type,
       [kProps]: props,
       // TODO: make this type wider
