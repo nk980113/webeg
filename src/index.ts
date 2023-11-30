@@ -6,6 +6,7 @@ import {
   kProps,
   kWebeg,
 } from './symbols.js';
+import { VDOMNode, createVDOMNode } from './vdom.js';
 
 if (typeof window === 'undefined') {
   throw new Error('This package should be run in browser or browser-like environment.');
@@ -15,15 +16,18 @@ const HTMLUnknownElementProto = Reflect.getPrototypeOf(document.createElement('c
 
 let unknownWarned = false;
 
-function render(vel: VElement<IntrinsicElementStr | FC<unknown>, unknown, unknown>): HTMLElement {
+function render(
+  vel: VElement<IntrinsicElementStr | FC<unknown>, unknown, unknown>,
+): [HTMLElement, VDOMNode] {
   if (typeof vel[kCreator] === 'string') {
     const el = document.createElement(vel[kCreator]);
     if (!unknownWarned && Reflect.getPrototypeOf(el) === HTMLUnknownElementProto) {
       // eslint-disable-next-line no-console
-      console.warn('Found unexpected unknown element. Did you make a typo in somewhere?');
+      console.warn('Found unexpected unknown element. Did you make a typo somewhere?');
       unknownWarned = true;
     }
-    Object.entries(vel[kProps] as object).forEach(([v, p]) => {
+    const children: VDOMNode[] = [];
+    Object.entries(vel[kProps]).forEach(([v, p]) => {
       if (v.startsWith('on')) {
         const eventName = v.slice(2).toLowerCase();
         el.addEventListener(eventName, function _webegInternalCallback(this: HTMLElement, ev) {
@@ -36,7 +40,10 @@ function render(vel: VElement<IntrinsicElementStr | FC<unknown>, unknown, unknow
         } else {
           els = [renderAny(p)];
         }
-        els.forEach((es) => es.forEach((e) => el.appendChild(e)));
+        els.forEach(([es, c]) => {
+          es.forEach((e) => el.appendChild(e));
+          children.push(c);
+        });
       } else if (v === 'key') {
         // No-op
       } else if (v === 'style') {
@@ -47,26 +54,31 @@ function render(vel: VElement<IntrinsicElementStr | FC<unknown>, unknown, unknow
     });
 
     vel[kInsertRef](el);
-    return el;
+    return [el, createVDOMNode(vel, children)];
   }
   throw new Error('Function components are not implemented now');
 }
 
-function renderAny(vel: JSX.Element): Node[] {
+function renderAny(vel: JSX.Element): [Node[], VDOMNode] {
   switch (typeof vel) {
     case 'string':
     case 'number':
     case 'bigint':
-      return [document.createTextNode(String(vel))];
+      return [[document.createTextNode(String(vel))], createVDOMNode(vel, [])];
     case 'undefined':
     case 'boolean':
-      return [];
+      return [[], createVDOMNode(vel, [])];
     case 'object':
+      if (!vel) return [[], createVDOMNode(vel, [])];
       if (vel[kIdent] === kWebeg) {
-        return [render(vel)];
+        const [el, node] = render(vel);
+        return [[el], node];
       }
       if (Array.isArray(vel)) {
-        return vel.flatMap((v) => renderAny(v));
+        const result = vel.map((v) => renderAny(v));
+        const node = createVDOMNode(vel, result.map(([, n]) => n));
+        const els = result.flatMap(([e]) => e);
+        return [els, node];
       }
       throw new Error('Type not supported');
     default:
@@ -78,9 +90,10 @@ function renderAny(vel: JSX.Element): Node[] {
 export function create(
   root: HTMLElement,
   element: JSX.Element,
-) {
-  const els = renderAny(element);
+): VDOMNode {
+  const [els, node] = renderAny(element);
   els.forEach((el) => root.appendChild(el));
+  return node;
 }
 
 export {

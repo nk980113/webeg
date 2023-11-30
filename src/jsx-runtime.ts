@@ -5,6 +5,7 @@ import {
   kIdent,
   kInsertRef,
   kProps,
+  kRef,
   kWebeg,
 } from './symbols.js';
 
@@ -73,7 +74,13 @@ declare global {
 
     }
     // FC return type
-    type Element = VElement<IntrinsicElementStr | FC<unknown>, unknown, unknown>;
+    type Element =
+      | VElement<IntrinsicElementStr | FC<unknown>, unknown, unknown>
+      | null
+      | string
+      | number
+      | bigint
+      | boolean;
     // framework defined attributes
     interface IntrinsicAttributes {
       key?: string;
@@ -137,8 +144,9 @@ export type FC<PropsType> = never;
 export type VElement<C extends IntrinsicElementStr | FC<unknown>, P, E> = {
   [kIdent]: typeof kWebeg;
   [kCreator]: C;
-  [kProps]: unknown;
+  [kProps]: PropType<C>;
   [kInsertRef](ref: P): boolean;
+  readonly [kRef]: P;
   [kExtend]<PE>(proto: PE): VElement<C, P, E & PE>;
 } & P & E;
 
@@ -157,12 +165,15 @@ export function jsx(
     return new Proxy({
       [kIdent]: kWebeg,
       [kCreator]: type,
-      [kProps]: props,
+      [kProps]: props ?? {},
       // TODO: make this type wider
       [kInsertRef](targetRef: HTMLElement) {
         const hadNoRef = !ref;
         ref = targetRef;
         return hadNoRef;
+      },
+      get [kRef]() {
+        return ref;
       },
       [kExtend]() {
         throw new Error('Extending VElement is not implemented now');

@@ -13,3 +13,9 @@ export const kExtend = Symbol(`kExtend_${randomHex()}`);
 export const kIdent = Symbol(`kIdent_${randomHex()}`);
 
 export const kWebeg = Symbol(`kWebeg_${randomHex()}`);
+
+export const kNodeData = Symbol(`kNodeData_${randomHex()}`);
+
+export const kRef = Symbol(`kRef_${randomHex()}`);
+
+export const kChildren = Symbol(`kChildren_${randomHex()}`);
