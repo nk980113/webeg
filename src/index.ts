@@ -18,7 +18,7 @@ let unknownWarned = false;
 
 function render(
   vel: VElement<IntrinsicElementStr | FC<unknown>, unknown, unknown>,
-): [HTMLElement, VDOMNode] {
+): [Node[], VDOMNode] {
   if (typeof vel[kCreator] === 'string') {
     const el = document.createElement(vel[kCreator]);
     if (!unknownWarned && Reflect.getPrototypeOf(el) === HTMLUnknownElementProto) {
@@ -27,18 +27,18 @@ function render(
       unknownWarned = true;
     }
     const children: VDOMNode[] = [];
-    Object.entries(vel[kProps]).forEach(([v, p]) => {
+    Object.entries(vel[kProps] as object).forEach(([v, p]) => {
       if (v.startsWith('on')) {
         const eventName = v.slice(2).toLowerCase();
         el.addEventListener(eventName, function _webegInternalCallback(this: HTMLElement, ev) {
-          p(ev, this);
+          (p as (_: unknown, __: unknown) => unknown)(ev, this);
         });
       } else if (v === 'children') {
         let els;
         if (Array.isArray(p)) {
           els = p.map((e) => renderAny(e));
         } else {
-          els = [renderAny(p)];
+          els = [renderAny(p as JSX.Element)];
         }
         els.forEach(([es, c]) => {
           es.forEach((e) => el.appendChild(e));
@@ -54,9 +54,10 @@ function render(
     });
 
     vel[kInsertRef](el);
-    return [el, createVDOMNode(vel, children)];
+    return [[el], createVDOMNode(vel, children)];
   }
-  throw new Error('Function components are not implemented now');
+  const [el, node] = renderAny(vel[kCreator](vel[kProps]));
+  return [el, createVDOMNode(vel, [node])];
 }
 
 function renderAny(vel: JSX.Element): [Node[], VDOMNode] {
@@ -71,8 +72,7 @@ function renderAny(vel: JSX.Element): [Node[], VDOMNode] {
     case 'object':
       if (!vel) return [[], createVDOMNode(vel, [])];
       if (vel[kIdent] === kWebeg) {
-        const [el, node] = render(vel);
-        return [[el], node];
+        return render(vel);
       }
       if (Array.isArray(vel)) {
         const result = vel.map((v) => renderAny(v));
@@ -86,7 +86,6 @@ function renderAny(vel: JSX.Element): [Node[], VDOMNode] {
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export function create(
   root: HTMLElement,
   element: JSX.Element,

@@ -22,3 +22,24 @@ describe('Static Test', () => {
       .should('have.css', 'font-family', '"Times New Roman"');
   });
 });
+
+describe('Function component test', () => {
+  beforeEach(() => {
+    cy.visit('testcases/fc/page.html');
+  });
+
+  it('Does render', () => {
+    cy.get('#container')
+      .should('contain.html', '<div id="created-by-fc">I\'m created with function components!</div>');
+  });
+
+  it('Passes props properly', () => {
+    cy.get('#with-props')
+      .should('contain.text', 'This text is controlled with props!');
+  });
+
+  it('Passes children as prop', () => {
+    cy.get('#with-children')
+      .should('contain.html', '<div>I\'m a children!</div>');
+  });
+});

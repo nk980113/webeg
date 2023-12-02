@@ -150,7 +150,7 @@ type Props<
 
 export type IntrinsicElementStr = keyof JSX.IntrinsicElements & keyof HTMLElementTagNameMap;
 
-type PropType<C extends IntrinsicElementStr | FC<unknown>> = C extends IntrinsicElementStr
+type PropType<C extends IntrinsicElementStr | FC<never>> = C extends IntrinsicElementStr
   ? JSX.IntrinsicElements[C]
   : C extends FC<infer PropsType>
     ? PropsType
@@ -158,10 +158,9 @@ type PropType<C extends IntrinsicElementStr | FC<unknown>> = C extends Intrinsic
 
 // #endregion
 
-// TODO: fill in this type
-export type FC<PropsType> = never;
+export type FC<PropsType> = (props: PropsType) => JSX.Element;
 
-export type VElement<C extends IntrinsicElementStr | FC<unknown>, P, E> = {
+export type VElement<C extends IntrinsicElementStr | FC<never>, P, E> = {
   [kIdent]: typeof kWebeg;
   [kCreator]: C;
   [kProps]: PropType<C>;
@@ -175,10 +174,15 @@ export function jsx<E extends IntrinsicElementStr>(
   props: JSX.IntrinsicElements[E],
   key?: string,
 ): VElement<E, HTMLElementTagNameMap[E], unknown>;
+export function jsx<PropsType>(
+  type: FC<PropsType>,
+  props: PropsType,
+  key?: string,
+): VElement<FC<PropsType>, undefined, unknown>;
 export function jsx(
   type: IntrinsicElementStr | FC<unknown>,
   props: unknown,
-  key?: string,
+  // key?: string,
 ): VElement<IntrinsicElementStr | FC<unknown>, unknown, unknown> {
   if (typeof type === 'string') {
     let ref: unknown;
@@ -226,10 +230,20 @@ export function jsx(
         return [];
       },
     });
-  // eslint-disable-next-line no-else-return
-  } else {
-    throw new Error('Function components are not implemented now');
   }
+  // Function components
+  return {
+    [kIdent]: kWebeg,
+    [kCreator]: type,
+    [kProps]: props,
+    [kInsertRef]() {
+      throw new Error('Unimplemented');
+    },
+    [kRef]: null,
+    [kExtend]() {
+      throw new Error('Extending VElement is not implemented now');
+    },
+  };
 }
 
 export { jsx as jsxs };
