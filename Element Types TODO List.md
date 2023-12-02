@@ -1,18 +1,18 @@
 # [HTML Elements (all inherit HTMLElement)](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 
 # Root Element
-- [ ] **`HTMLHtmlElement (html)`**
+- [x] **`HTMLHtmlElement (html)`**
 
 # Metadata
-- [ ] **`HTMLHeadElement (head)`**
-- [ ] **`HTMLLinkElement (link)`**
-- [ ] **`HTMLMetaElement (meta)`**
-- [ ] **`HTMLStyleElement : LinkStyle (style)`**
-- [ ] **`HTMLTitleElement (title)`**
 - [ ] `HTMLBaseElement (base)`
+- [x] **`HTMLHeadElement (head)`**
+- [x] **`HTMLLinkElement (link)`**
+- [x] **`HTMLMetaElement (meta)`**
+- [x] **`HTMLStyleElement : LinkStyle (style)`**
+- [x] **`HTMLTitleElement (title)`**
 
 # Section Root
-- [ ] **`HTMLBodyElement : WindowEventHandlers (body)`**
+- [x] **`HTMLBodyElement : WindowEventHandlers (body)`**
 
 # Content Section
 - [ ] `address`
@@ -27,8 +27,6 @@
 - [x] **`nav`**
 
 # Text Content
-- [ ] **`HTMLHRElement (hr)`**
-- [ ] **`HTMLPreElement (pre)`**
 - [ ] `HTMLQuoteElement (blackquote)`
 - [ ] `dd`
 - [ ] `HTMLDListElement (dl)`
@@ -41,12 +39,10 @@
 - [x] ***`HTMLOListElement (ol)`***
 - [x] ***`HTMLParagraphElement (p)`***
 - [x] ***`HTMLUListElement (ul)`***
+- [x] **`HTMLHRElement (hr)`**
+- [x] **`HTMLPreElement (pre)`**
 
 # Inline Text Semantics
-- [ ] **`code`**
-- [ ] **`strong`**
-- [ ] **`sub`**
-- [ ] **`sup`**
 - [ ] `abbr`
 - [ ] `bdi`
 - [ ] `bdo`
@@ -72,22 +68,26 @@
 - [x] ***`HTMLBRElement (br)`***
 - [x] ***`i`***
 - [x] ***`HTMLSpanElement (span)`***
+- [x] **`code`**
+- [x] **`strong`**
+- [x] **`sub`**
+- [x] **`sup`**
 
 # Image/Media
-- [ ] **`HTMLAudioElement : HTMLMediaElement (audio)`**
-- [ ] **`HTMLVideoElement : HTMLMediaElement (video)`**
 - [ ] `HTMLAreaElement : HTMLHyperlinkElementUtils (area)`
 - [ ] `HTMLMapElement (map)`
 - [ ] `HTMLTrackElement (track)`
 - [x] ***`HTMLImageElement (img)`***
+- [x] **`HTMLAudioElement : HTMLMediaElement (audio)`**
+- [x] **`HTMLVideoElement : HTMLMediaElement (video)`**
 
 # Embedded Content
-- [ ] **`HTMLEmbedElement (embed)`**
-- [ ] **`HTMLObjectElement (object)`**
 - [ ] `HTMLPictureElement (picture)`
 - [ ] `portal`
 - [ ] `HTMLSourceElement (source)`
 - [x] ***`HTMLIFrameElement (iframe)`***
+- [x] **`HTMLEmbedElement (embed)`**
+- [x] **`HTMLObjectElement (object)`**
 
 # SVG/MathML
 - [ ] **`svg`**
@@ -103,18 +103,15 @@
 - [ ] `HTMLModElement (del/ins)`
 
 # Table Contents
-- [ ] **`HTMLTableElement (table)`**
-- [ ] **`HTMLTableCellElement (th/td)`**
-- [ ] **`HTMLTableRowElement (tr)`**
 - [ ] `HTMLTableCaptionElement (caption)`
 - [ ] `HTMLTableColElement (col)`
 - [ ] `colgroup`
 - [ ] `HTMLTableSectionElement (thead, tfoot, tbody)`
+- [x] **`HTMLTableElement (table)`**
+- [x] **`HTMLTableCellElement (th/td)`**
+- [x] **`HTMLTableRowElement (tr)`**
 
 # Forms
-- [ ] **`HTMLLabelElement (label)`**
-- [ ] **`HTMLOptionElement (option)`**
-- [ ] **`HTMLSelectElement (select)`**
 - [ ] `HTMLDataListElement (datalist)`
 - [ ] `HTMLFieldSetElement (fieldset)`
 - [ ] `HTMLLegendElement (legend)`
@@ -126,6 +123,9 @@
 - [x] ***`HTMLButtonElement : PopInvokerElement (button)`***
 - [x] ***`HTMLFormElement (form)`***
 - [x] ***`HTMLInputElement (input)`***
+- [x] **`HTMLLabelElement (label)`**
+- [x] **`HTMLOptionElement (option)`**
+- [x] **`HTMLSelectElement (select)`**
 
 # Interactive
 - [ ] `HTMLDetailsElement (details)`

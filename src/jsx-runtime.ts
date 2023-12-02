@@ -24,12 +24,16 @@ declare global {
     // TODO: fill in these types
     // builtin attributes
     interface IntrinsicElements {
-      // TODO: Root Element
-
+      // Root Element
+      html: Props<HTMLHtmlElement>;
       // TODO: Metadata
-
-      // TODO: Section Root
-
+      head: Props<HTMLHeadElement>;
+      link: Props<HTMLLinkElement>;
+      meta: Props<HTMLMetaElement>;
+      style: Props<HTMLStyleElement>;
+      title: Props<HTMLTitleElement>;
+      // Section Root
+      body: Props<HTMLBodyElement, HTMLBodyElementEventMap>;
       // TODO: Content Section
       h1: Props<HTMLHeadingElement>;
       h2: Props<HTMLHeadingElement>;
@@ -45,6 +49,8 @@ declare global {
       ol: Props<HTMLOListElement>;
       p: Props<HTMLParagraphElement>;
       ul: Props<HTMLUListElement>;
+      hr: Props<HTMLHRElement>;
+      pre: Props<HTMLPreElement>;
       // TODO: Inline Text Semantics
       // TODO: add SVG A Element
       a: Props<HTMLAnchorElement>;
@@ -52,10 +58,18 @@ declare global {
       br: Props<HTMLBRElement>;
       i: Props;
       span: Props<HTMLSpanElement>;
+      code: Props;
+      strong: Props;
+      sub: Props;
+      sup: Props;
       // TODO: Image/Media
       img: Props<HTMLImageElement>;
+      audio: Props<HTMLAudioElement, HTMLMediaElementEventMap>;
+      video: Props<HTMLVideoElement, HTMLVideoElementEventMap>;
       // TODO: Embedded Content
       iframe: Props<HTMLIFrameElement>;
+      embed: Props<HTMLEmbedElement>;
+      object: Props<HTMLObjectElement>;
       // TODO: SVG/MathML
 
       // TODO: Scripting
@@ -63,11 +77,17 @@ declare global {
       // TODO: Demarcating Edits
 
       // TODO: Table Contents
-
+      table: Props<HTMLTableElement>;
+      th: Props<HTMLTableCellElement>;
+      td: Props<HTMLTableCellElement>;
+      tr: Props<HTMLTableRowElement>;
       // TODO: Forms
       button: Props<HTMLButtonElement>;
       form: Props<HTMLFormElement>;
       input: Props<HTMLInputElement>;
+      label: Props<HTMLLabelElement>;
+      option: Props<HTMLOptionElement>;
+      select: Props<HTMLSelectElement>;
       // TODO: Interactive
 
       // TODO: Web Components

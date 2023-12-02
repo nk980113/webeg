@@ -16,7 +16,11 @@
         "expect": false,
         "HTMLElementEventMap": false,
         "JSX": false,
-        "HTMLElementTagNameMap": false
+        "HTMLElementTagNameMap": false,
+        "HTMLBodyElementEventMap": false,
+        "WindowEventHandlersEventMap": false,
+        "HTMLMediaElementEventMap": false,
+        "HTMLVideoElementEventMap": false
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
