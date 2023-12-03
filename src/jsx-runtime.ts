@@ -236,18 +236,24 @@ export function jsx(
     });
   }
   // Function components
-  return {
+  return new Proxy({
     [kIdent]: kWebeg,
     [kCreator]: type,
     [kProps]: props,
     [kInsertRef]() {
       throw new Error('Unimplemented');
     },
-    [kRef]: null,
+    get [kRef]() {
+      return null;
+    },
     [kExtend]() {
       throw new Error('Extending VElement is not implemented now');
     },
-  };
+  }, {
+    ownKeys() {
+      return [];
+    },
+  });
 }
 
 export { jsx as jsxs };
