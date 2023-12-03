@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   create(document.body, <div id='container'>
     <ContainsDiv />
     <WithProps text='This text is controlled with props!' />
-    {/* FIXME: Normal way doesn't compile */}
-    <WithChildren children={<div>I'm a children!</div>} />
+    <WithChildren>
+      <div>I'm a children!</div>
+    </WithChildren>
   </div>);
 });
 

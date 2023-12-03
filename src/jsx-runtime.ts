@@ -19,7 +19,10 @@ declare global {
     type ElementAttributesProperty = never;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     type IntrinsicClassAttributes<T> = never;
-    type ElementChildrenAttribute = never;
+    interface ElementChildrenAttribute {
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      children: {};
+    }
 
     // TODO: fill in these types
     // builtin attributes
@@ -100,7 +103,8 @@ declare global {
       | string
       | number
       | bigint
-      | boolean;
+      | boolean
+      | Element[];
     // framework defined attributes
     interface IntrinsicAttributes {
       key?: string;
