@@ -71,14 +71,14 @@ function renderAny(vel: JSX.Element): [Node[], VDOMNode] {
       return [[], createVDOMNode(vel, [])];
     case 'object':
       if (!vel) return [[], createVDOMNode(vel, [])];
-      if (vel[kIdent] === kWebeg) {
-        return render(vel);
-      }
       if (Array.isArray(vel)) {
         const result = vel.map((v) => renderAny(v));
         const node = createVDOMNode(vel, result.map(([, n]) => n));
         const els = result.flatMap(([e]) => e);
         return [els, node];
+      }
+      if (vel[kIdent] === kWebeg) {
+        return render(vel);
       }
       throw new Error('Type not supported');
     default:
