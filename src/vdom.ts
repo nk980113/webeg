@@ -6,6 +6,7 @@ import {
   kWebeg,
 } from './symbols.js';
 
+/** A node in the VDOM Tree. */
 export type VDOMNode = {
   [kIdent]: typeof kWebeg;
   [kNodeData]: JSX.Element;

@@ -164,6 +164,9 @@ type PropType<C extends IntrinsicElementStr | FC<never>> = C extends IntrinsicEl
 
 export type FC<PropsType> = (props: PropsType) => JSX.Element;
 
+/**
+ * The return type of `jsx`. Represents a component.
+ */
 export type VElement<C extends IntrinsicElementStr | FC<never>, P, E> = {
   [kIdent]: typeof kWebeg;
   [kCreator]: C;

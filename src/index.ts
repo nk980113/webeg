@@ -86,6 +86,12 @@ function renderAny(vel: JSX.Element): [Node[], VDOMNode] {
   }
 }
 
+/**
+ * Render the target component to the DOM Tree.
+ * @param root The container DOM element to render the result.
+ * @param element The target element to render.
+ * @returns The root of the result VDOM Tree.
+ */
 export function create(
   root: HTMLElement,
   element: JSX.Element,
@@ -97,4 +103,5 @@ export function create(
 
 export {
   VElement,
+  VDOMNode,
 };
