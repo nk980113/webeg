@@ -11,3 +11,7 @@ Add following items to your `tsconfig.json`:
 See the [TSConfig Reference](https://www.typescriptlang.org/tsconfig#jsx) for more information.
 
 Using webeg with a bundler (such as `tsup`) would be suggested.
+
+# Related File
+
+- [testcases/tsconfig.json](../../testcases/tsconfig.json)
