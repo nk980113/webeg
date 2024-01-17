@@ -9,5 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
       el.textContent = 'This piece of text is controlled by event listener!';
     }}>Click me!</div>
     {divRef}
+    <div id='control-this' onClick={function _() {
+      this.textContent = 'This piece of text is controlled by event listener using this!';
+    }}>Click me three!</div>
   </div>);
 });

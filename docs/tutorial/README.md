@@ -8,6 +8,9 @@ Welcome to webeg tutorial.
 - [Basics](./basics.md)
     - [Creating](./basics.md#creating-static-elements)
     - [Rendering](./basics.md#rendering-velements)
+- [Event Handlers And Refs](./handlers_and_refs.md)
+    - [Event Handlers](./handlers_and_refs.md#event-handlers)
+    - [Refs](./handlers_and_refs.md#element-refs)
 
 # Examples
 The [testcases](../../testcases/) are enough so far.

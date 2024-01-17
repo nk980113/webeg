@@ -12,4 +12,12 @@ describe('OnClick Test', () => {
       .click()
       .should('contain.text', 'This piece of text is controlled by webeg refs!');
   });
+
+  it('Binds `this` to target element', () => {
+    cy.visit('testcases/event/page.html');
+
+    cy.get('#control-this')
+      .click()
+      .should('contain.text', 'This piece of text is controlled by event listener using this!');
+  });
 });

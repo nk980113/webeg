@@ -31,7 +31,7 @@ function render(
       if (v.startsWith('on')) {
         const eventName = v.slice(2).toLowerCase();
         el.addEventListener(eventName, function _webegInternalCallback(this: HTMLElement, ev) {
-          (p as (_: unknown, __: unknown) => unknown)(ev, this);
+          (p as (_: unknown, __: unknown) => unknown).call(this, ev, this);
         });
       } else if (v === 'children') {
         let els;

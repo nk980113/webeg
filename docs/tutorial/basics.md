@@ -26,6 +26,7 @@ const vElement = (
 );
 ```
 Meaningful props are included in TypeScript declaration files.
+Props are internally created by assigning correlated JavaScript properties.
 
 You can also insert normal JavaScript values as props with curly braces `{}`:
 ```tsx
