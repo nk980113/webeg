@@ -1,3 +1,3 @@
 # webeg docs
 Welcome to webeg docs.
-- [Turorial](./tutorial/)
+- [Turorial](./tutorial/README.md)

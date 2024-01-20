@@ -11,7 +11,8 @@ const vElement = (
 );
 ```
 The variable `vElement` now has type `VElement<'div', HTMLDivElement, unknown>`.
-> Note: the inferred type of the variable will be `JSX.Element` due to TypeScript issues, but it doesn't matter much
+> [!NOTE]
+> The inferred type of the variable will be `JSX.Element` due to TypeScript issues, but it doesn't matter much for now
 
 The first generic parameter of `VElement` type is the "element creator," which represents how this element is created.
 The second and the third generic parameters represents "ref type" and "extension type," which will be covered later.

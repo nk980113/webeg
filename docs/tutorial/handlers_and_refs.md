@@ -16,7 +16,8 @@ A event handler can receive two parameters. The first one is the event object ju
 ```
 
 `this` is bound to the event element, just like plain JavaScript.
-> Note: Arrow function doesn't work in this scenario, [see why on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#cannot_be_used_as_methods); You are forced to use normal `function` expression in this case
+> [!NOTE]
+> Arrow function doesn't work in this scenario, [see why on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#cannot_be_used_as_methods); You are forced to use normal `function` expression in this case
 
 ```tsx
 <button onClick={function () {
@@ -31,10 +32,13 @@ Element ref is a way to keep track of your element **after the element is create
 Remember in the basics chapter, we [talked about the `VElement` type](./basics.md#basics), and said about that its second generic parameter is the ref type. Actually, a `VElement` is internally a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) object, which mappes the properties of a `VElement` to its target element's properties.
 
 In short, `VElement`s can be treated as a normal element object after its target element's creation.
-> Note: If using TypeScript, type assertion are required to make the ref type work normally.
+> [!NOTE]
+> If using TypeScript, type assertion are required to make the ref type work normally.
 
 <!-- TODO: improve this example using fragments -->
 ```tsx
+import { VElement } from 'webeg';
+
 let harryRef = <div>Hi! I'm Harry!</div> as VElement<'div', HTMLDivElement, unknown>;
 
 <div>
