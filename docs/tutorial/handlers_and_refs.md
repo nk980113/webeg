@@ -33,7 +33,7 @@ Remember in the basics chapter, we [talked about the `VElement` type](./basics.m
 
 In short, `VElement`s can be treated as a normal element object after its target element's creation.
 > [!NOTE]
-> If using TypeScript, type assertion are required to make the ref type work normally.
+> If using TypeScript, type assertions are required to make the ref type work normally.
 
 <!-- TODO: improve this example using fragments -->
 ```tsx
